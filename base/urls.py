@@ -14,8 +14,8 @@ urlpatterns = [
     path('register/', RegisterPage.as_view(), name='register'),
 
     path('', TaskList.as_view(), name='task-list'),
-    path('task/<int:pk>/', TaskDetail.as_view(), name='task-detail'),
-    path('task-create/', TaskCreate.as_view(), name='task-create'),
-    path('task-edit/<int:pk>/', TaskUpdate.as_view(), name='task-update'),
-    path('task-delete/<int:pk>/', TaskDelete.as_view(), name='task-delete'),
+    path('<int:pk>/', TaskDetail.as_view(), name='task-detail'),
+    path('create/', TaskCreate.as_view(), name='task-create'),
+    path('<int:pk>/edit', TaskUpdate.as_view(), name='task-update'),
+    path('<int:pk>/delete', TaskDelete.as_view(), name='task-delete'),
 ]
