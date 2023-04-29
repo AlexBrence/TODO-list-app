@@ -2,6 +2,28 @@
 
 {% block content %}
 
-<h1>Task: {{ task }}</h1>
+<div class="header-bar">
+    <h1>{{ task }}</h1>
+    <a href="{% url 'task-list' %}">&#8592; Go back</a>
+</div>
+
+<div class="card-body">
+    <i style="float: right;">{{ task.date_created }}</i>
+    <div style="padding: 5px";>
+        <h4>Description</h4>
+        <p>{{ task.description }}</p>
+    </div>
+
+    <h4>Status</h4>
+    <div style="padding: 5px"; class="task-title">
+        {% if task.is_completed %}
+            <div class="task-complete-icon"></div>
+            <span style="margin-left: 5px;">Completed</span>
+        {% else %}
+            <div class="task-incomplete-icon"></div>
+            <span style="margin-left: 5px;">Not completed</span>
+        {% endif %}
+    </div>
+</div>
 
 {% endblock content %}

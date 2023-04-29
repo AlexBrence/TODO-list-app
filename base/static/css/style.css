@@ -77,13 +77,18 @@ input {
     border-radius: 50%;
 }
 
-.delete-link {
+.symbol-items {
+    display: inline-block;
+}
+
+.symbol-link {
     text-decoration: none;
     font-weight: 900;
     color: #cf4949;
     font-size: 22px;
     line-height: 0;
     padding: 20px 0px;
+    margin: 0px 5px;
 }
 
 /*Handle Classes*/

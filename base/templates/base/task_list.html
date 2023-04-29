@@ -22,7 +22,7 @@
     <div id="search-add-wrapper">
         <a id="add-link" href="{% url 'task-create' %}">&#x2b; Add task</a>
 
-        <form method="GET" style="margin-top: 20px; display: flex;">
+        <form method="GET" style="display: flex;">
             <input type="text" name="search" value="{{ search }}">
             <input class="button" style="margin-left: 4px;" type="submit" value="Search">
         </form>
@@ -31,27 +31,28 @@
 
     <div class="task-items-wrapper">
 
-        {% if tasks %}
-            {% for task in tasks %}
-                <div class="task-wrapper">
-                    <div class="task-title">
+        {% for task in tasks %}
+            <div class="task-wrapper">
+                <div class="task-title">
 
-                        {% if task.is_completed %}
-                            <div class="task-complete-icon"></div>
-                            <i><s>
-                                <a href="{% url 'task-update' task.id %}">{{ task }}</a>
-                            </s></i>
-                        {% else %}
-                            <div class="task-incomplete-icon"></div>
-                            <a href="{% url 'task-update' task.id %}">{{ task }}</a>
-                        {% endif %}
-                    </div>
-                    <a class="delete-link" href="{% url 'task-delete' task.id %}">&#215;</a>
+                    {% if task.is_completed %}
+                        <div class="task-complete-icon"></div>
+                        <i><s>
+                            <a href="{% url 'task-detail' task.id %}">{{ task }}</a>
+                        </s></i>
+                    {% else %}
+                        <div class="task-incomplete-icon"></div>
+                        <a href="{% url 'task-detail' task.id %}">{{ task }}</a>
+                    {% endif %}
                 </div>
-            {% endfor %}
-        {% else %}
+                <div style="symbol-items">
+                    <a class="symbol-link" href="{% url 'task-update' task.id %}">&#x270E;</a>
+                    <a class="symbol-link" href="{% url 'task-delete' task.id %}">&#215;</a>
+                </div>
+            </div>
+        {% empty %}
             <h3>No tasks.</h3>
-        {% endif %}
+        {% endfor %}
     </div>
 
 </div>
