@@ -1,14 +1,11 @@
-from django.http import HttpRequest, HttpResponse, Http404
-from django.shortcuts import redirect, get_object_or_404
+from django.http import Http404
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.contrib.auth import login
-from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.forms import UserCreationForm
 
 from django.views.generic import (
     ListView, DetailView, CreateView,
-    UpdateView, DeleteView, FormView
+    UpdateView, DeleteView
 )
 
 from .models import Task
@@ -22,33 +19,6 @@ class PreventUnauthorizedMixin(object):
             raise Http404
 
         return super().get(request, *args, **kwargs)
-
-
-class CustomLoginView(LoginView):
-    template_name = 'base/login.html'
-    fields = '__all__'
-    redirect_authenticated_user = True
-
-    def get_success_url(self):
-        return reverse_lazy('task-list')
-
-
-class RegisterPage(FormView):
-    template_name = 'base/register.html'
-    form_class = UserCreationForm
-    success_url = reverse_lazy('task-list')
-
-    def form_valid(self, form):
-        user = form.save()
-
-        if user is not None:
-            login(self.request, user)
-        return super().form_valid(form)
-
-    def get(self, *args, **kwargs):
-        if self.request.user.is_authenticated:
-            return redirect('task-list')
-        return super().get(*args, **kwargs)
 
 
 class TaskList(LoginRequiredMixin, ListView):
